@@ -1,8 +1,7 @@
 import logging
 import sys
 
-_formatter = logging.Formatter(fmt="%(asctime)s %(levelname)s: %(message)s",
-                               datefmt="%Y-%m-%d - %H:%M:%S")
+_formatter = logging.Formatter(fmt="[%(asctime)s] [%(process)d] [%(levelname)s] [%(pathname)s:%(lineno)d]: %(message)s")
 _ch = logging.StreamHandler(sys.stdout)
 _ch.setLevel(logging.DEBUG)
 _ch.setFormatter(_formatter)

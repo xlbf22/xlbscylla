@@ -9,6 +9,7 @@ from sanic_cors import CORS
 
 from scylla.database import ProxyIP
 from scylla.loggings import logger
+from datetime import datetime
 
 app = Sanic()
 
@@ -97,7 +98,15 @@ async def api_v1_proxies(request: Request):
     proxy_list = []
 
     for p in proxies:
-        proxy_list.append(model_to_dict(p))
+        d = model_to_dict(p)
+        logger.error("created_at->:{}".format(d))
+        if isinstance(d['created_at'], datetime):
+            d['created_at'] = d['created_at'].strftime("%Y-%m-%d %H:%M:%S")
+
+        if isinstance(d['updated_at'], datetime):
+            d['updated_at'] = d['updated_at'].strftime("%Y-%m-%d %H:%M:%S")
+
+        proxy_list.append(d)
 
     return json({
         'proxies': proxy_list,

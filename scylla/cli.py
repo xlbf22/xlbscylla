@@ -26,7 +26,7 @@ def main(args) -> int:
                         help='Print the version of Scylla')
     parser.add_argument('--db-path', type=str, default='./scylla.db',
                         help='The sqlite database file location')
-    parser.add_argument('--validation-pool', type=int, default=31,
+    parser.add_argument('--validation-pool', type=int, default=5,
                         help='The validation pool size (i.e. the limit of concurrent validation tasks for proxies)')
     parser.add_argument('--no-forward-proxy-server', action='store_true',
                         help='Disable the forward proxy server')
