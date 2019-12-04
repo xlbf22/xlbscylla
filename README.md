@@ -6,34 +6,32 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5DXFA7WGWPZBN)
 ===
 
-An intelligent proxy pool for humanities, only supports Python 3.6. Key
+Scylla 是一款高质量的免费代理 IP 池工具，仅支持 Python 3.6。特性如下：
 features:
 
-- Automatic proxy ip crawling and validation
-- Easy-to-use JSON API
-- Simple but beautiful web-based user interface (eg. geographical
-    distribution of proxies)
-- Get started with only **1 command** minimally
-- Simple HTTP Forward proxy server
-- [Scrapy] and [requests] integration with only 1 line of code
-    minimally
-- Headless browser crawling
+- 自动化的代理 IP 爬取与验证
+- 易用的 JSON API
+- 简单但美观的 web 用户界面，基于 TypeScript 和 React（例如，代理的地理分布）
+- 最少仅用 **一条命令** 即可启动
+- Simple HTTP 转发代理服务
+- 最少仅用一行代码即可与 [Scrapy] 和 [requests] 进行集成
+- 无头浏览器（headless browser crawling）爬虫
 
 对于偏好中文的用户，请阅读 [中文文档](https://scylla.wildcat.io/zh/latest/)。For those who prefer to use Chinese, please read the [Chinese Documentation](https://scylla.wildcat.io/zh/latest/).
 
-Get started
+快速开始
 ===========
 
-Installation
+安装
 ------------
 
-### Install with Docker (highly recommended)
+### Docker 安装（推荐）
 
 ```bash
 docker run -d -p 8899:8899 -p 8081:8081 -v /var/www/scylla:/var/www/scylla --name scylla wildcat/scylla:latest
 ```
 
-### Install directly via pip
+### 使用 pip 直接安装
 
 ```bash
 pip install scylla
@@ -41,7 +39,7 @@ scylla --help
 scylla # Run the crawler and web server for JSON API
 ```
 
-### Install from source
+### 从源代码安装
 
 ```bash
 git clone https://github.com/imWildCat/scylla.git
@@ -55,34 +53,30 @@ make assets-build
 python -m scylla
 ```
 
-##### For Windows user who fails at installing `sanic` due to `uvloop does not support Windows at the moment`:
+##### Windows用户在安装 sanic 时假如遇到 uvloop does not support Windows at the moment:
 
 ```bash
 export SANIC_NO_UVLOOP=true
 export SANIC_NO_UJSON=true
 pip3 install sanic
 ```
-If this also fails, yoi will need to manual install sanic from source.
+如果仍是失败，你需要从源码安装sanic。
 
-Usage
+使用
 -----
-
-This is an example of running a service locally (`localhost`), using
-port `8899`.
-
-Note: You might have to wait for 1 to 2 minutes in order to get some proxy ips populated in the database for the first time you use Scylla.
+这里以服务运行在本地（`localhost`）为例，使用口号 `8899`。 注意：首次运行本项目时，您可能需要等待 1～2 分钟以爬取一定量的代理 IP。
 
 ### JSON API
 
-#### Proxy IP List
+#### 代理 IP 列表
 
 ```bash
 http://localhost:8899/api/v1/proxies
 ```
 
-Optional URL parameters:
+可选 URL 参数：
 
-| Parameters  | Default value | Description                                                  |
+| 参数         | 默认值        | 说明                                                         |
 | ----------- | ------------- | ------------------------------------------------------------ |
 | `page`      | `1`           | The page number                                              |
 | `limit`     | `20`          | The number of proxies shown on each page                     |
@@ -90,7 +84,7 @@ Optional URL parameters:
 | `https`     | `any` | Show HTTPS proxies or not. Possible values：`true`, only HTTPS proxies; `false`, only HTTP proxies |
 | `countries`   | None | Filter proxies for specific countries. Format example: ``US``, or multi-countries: `US,GB` |
 
-Sample result:
+结果样例：
 
 ```json
 {
@@ -140,13 +134,13 @@ Sample result:
 }
 ```
 
-#### System Statistics
+#### 系统统计
 
 ```bash
 http://localhost:8899/api/v1/stats
 ```
 
-Sample result:
+结果样例：
 
 ```json
 {
@@ -157,131 +151,73 @@ Sample result:
 }
 ```
 
-### HTTP Forward Proxy Server
+### HTTP 正向代理服务器
 
-By default, Scylla will start a HTTP Forward Proxy Server on port
-`8081`. This server will select one proxy updated recently from the
-database and it will be used for forward proxy. Whenever an HTTP request
-comes, the proxy server will select a proxy randomly.
+默认情况下，Scylla 会在端口 `8081` 启动一个 HTTP 正向代理服务器（Forward Proxy Server）。 这个服务器会从数据库中选择一个刚更新过的代理，并将其用作正向代理。 每当发出 HTTP 请求时，代理服务器将随机选择一个代理。
 
-Note: HTTPS requests are not supported at present.
+注意：目前不支持 HTTPS 请求。
 
-The example for `curl` using this proxy server is shown below:
-
+使用此代理服务器的 “`curl`” 示例如下：
 ```bash
 curl http://api.ipify.org -x http://127.0.0.1:8081
 ```
 
-You could also use this feature with [requests][]:
+你也可以在 [requests][] 中使用这个特性：
 
 ```python
 requests.get('http://api.ipify.org', proxies={'http': 'http://127.0.0.1:8081'})
 ```
 
-### Web UI
+### Web 界面
+打开 `http://localhost:8899` 即可访问本项目的 Web 界面。
 
-Open `http://localhost:8899` in your browser to see the Web UI of this
-project.
-
-#### Proxy IP List
+#### 代理 IP 列表
 
 ```
 http://localhost:8899/
 ```
 
-Screenshot:
+截图：
 
 ![screenshot-proxy-list](https://user-images.githubusercontent.com/2396817/40653600-946eae6e-6333-11e8-8bbd-9d2f347c5461.png)
 
-#### Globally Geographical Distribution Map
+#### 代理 IP 全球分布
 
 ```
 http://localhost:8899/#/geo
 ```
 
-Screenshot:
+截图：
 
 ![screenshot-geo-distribution](https://user-images.githubusercontent.com/2396817/40653599-9458b6b8-6333-11e8-8e6e-1d90271fc083.png)
 
-API Documentation
+API 文档
 =================
+请阅读 [模块索引](https://scylla.wildcat.io/en/latest/py-modindex.html)。
 
-Please read [Module
-Index](https://scylla.wildcat.io/en/latest/py-modindex.html).
+开发路线图
+=======
+请查看 [Projects](https://github.com/imWildCat/scylla/projects)。
 
-Roadmap
+测试
 =======
 
-Please see [Projects](https://github.com/imWildCat/scylla/projects).
-
-Development and Contribution
-============================
-
-```bash
-git clone https://github.com/imWildCat/scylla.git
-cd scylla
-
-pip install -r requirements.txt
-
-npm install # or `yarn install`
-make assets-build
-```
-
-Testing
-=======
-
-If you wish to run tests locally, the commands are shown below:
-
+如需在本地运行测试，命令如下：
 ```bash
 pip install -r tests/requirements-test.txt
 pytest tests/
 ```
 
-You are welcomed to add more test cases to this project, increasing the
-robustness of this project.
-
-Naming of This Project
+项目命名
 ======================
+[Scylla](http://prisonbreak.wikia.com/wiki/Scylla)，或被称为“锡拉”（中文里），源自于美剧[《越狱》](https://en.wikipedia.org/wiki/Prison_Break)中的一组记忆芯片的名字。本项目以此命名，是为了致敬这部美剧。
 
-[Scylla](http://prisonbreak.wikia.com/wiki/Scylla) is derived from the
-name of a group of memory chips in the American TV series, [Prison
-Break](https://en.wikipedia.org/wiki/Prison_Break). This project was
-named after this American TV series to pay tribute to it.
-
-Help
-======================
-[How to install Python Scylla on CentOS7](https://digcodes.com/how-to-install-python-scylla-on-centos7/)
-
-
-Donation
+捐助
 ========
 
-If you find this project useful, could you please donate some money to
-it?
+[捐助Scylla的原作者](https://github.com/imWildCat/scylla#paypal)
 
-No matter how much the money is, Your donation will inspire the author
-to develop new features continuously! 🎉 Thank you!
-
-The ways for donation are shown below:
-
-PayPal
-------
-
-[![paypal_donation](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5DXFA7WGWPZBN)
-
-Alipay or WeChat Pay
---------------------
-
-[![Alipay And WeChat Donation]][Alipay and WeChat Donation]
-
-License
+协议
 =======
+Apache License 2.0. 如需了解详情，请阅读 [LICENSE](https://github.com/imWildCat/scylla/blob/master/LICENSE) 这个文件。
 
-Apache License 2.0. For more details, please read the
-[LICENSE](https://github.com/imWildCat/scylla/blob/master/LICENSE) file.
-
-[Alipay and WeChat Donation]: https://user-images.githubusercontent.com/2396817/40589594-cfb0e49e-61e7-11e8-8f7d-c55a29676c40.png
-
-
-  [Scrapy]: https://scrapy.org
-  [requests]: http://docs.python-requests.org/
