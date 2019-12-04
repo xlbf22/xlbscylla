@@ -183,7 +183,7 @@ http://localhost:8899/#/geo
 
 截图：
 
-![screenshot-geo-distribution](https://user-images.githubusercontent.com/2396817/40653599-9458b6b8-6333-11e8-8e6e-1d90271fc083.png)
+![screenshot-geo-distribution](https://github.com/xlbf22/xlbscylla/blob/master/image02.gif)
 
 API 文档
 =================
