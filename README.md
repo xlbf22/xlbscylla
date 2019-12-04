@@ -71,13 +71,13 @@ http://localhost:8899/api/v1/proxies
 
 可选 URL 参数：
 
-| 参数         | 默认值        | 说明                                                         |
+| 参数        |  默认值        | 说明                                                         |
 | ----------- | ------------- | ------------------------------------------------------------ |
 | `page`      | `1`           | The page number                                              |
 | `limit`     | `20`          | The number of proxies shown on each page                     |
 | `anonymous` | `any`         | Show anonymous proxies or not. Possible values：`true`, only anonymous proxies; `false`, only transparent proxies |
-| `https`     | `any` | Show HTTPS proxies or not. Possible values：`true`, only HTTPS proxies; `false`, only HTTP proxies |
-| `countries`   | None | Filter proxies for specific countries. Format example: ``US``, or multi-countries: `US,GB` |
+| `https`     | `any`         | Show HTTPS proxies or not. Possible values：`true`, only HTTPS proxies; `false`, only HTTP proxies |
+| `countries` | None          | Filter proxies for specific countries. Format example: ``US``, or multi-countries: `US,GB` |
 
 结果样例：
 
