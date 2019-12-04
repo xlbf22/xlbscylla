@@ -173,7 +173,7 @@ http://localhost:8899/
 ```
 
 截图：
-![screenshot-proxy-list](https://user-images.githubusercontent.com/2396817/40653600-946eae6e-6333-11e8-8bbd-9d2f347c5461.png)
+![screenshot-proxy-list](https://github.com/xlbf22/xlbscylla/blob/master/image01.gif)
 
 #### 代理 IP 全球分布
 
