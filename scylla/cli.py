@@ -7,31 +7,20 @@ from ._version import __version__
 CMD_DESCRIPTION = """Scylla command line mode
 This command could start a scheduler for crawling and validating proxies.
 In addition, a web server with APIs can also be launched.
-
 """
 
 
 def main(args) -> int:
-    parser = argparse.ArgumentParser(description=CMD_DESCRIPTION,
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--no-webserver', '-no-ws', action='store_true',
-                        help='Prevent starting a web server for JSON API')
-    parser.add_argument('--web-port', '-wp', type=int, default=8899,
-                        help='The port number for the web server')
-    parser.add_argument('--web-host', '-wh', type=str, default='0.0.0.0',
-                        help='The hostname for the web server')
-    parser.add_argument('--skip-scheduler', action='store_true',
-                        help='Prevent the scheduler from crawling')
-    parser.add_argument('--version', '-v', action='store_true',
-                        help='Print the version of Scylla')
-    parser.add_argument('--db-path', type=str, default='./scylla.db',
-                        help='The sqlite database file location')
-    parser.add_argument('--validation-pool', type=int, default=5,
-                        help='The validation pool size (i.e. the limit of concurrent validation tasks for proxies)')
-    parser.add_argument('--no-forward-proxy-server', action='store_true',
-                        help='Disable the forward proxy server')
-    parser.add_argument('--proxy-port', '-pp', type=int, default=8081,
-                        help='The port number for the forward proxy')
+    parser = argparse.ArgumentParser(description=CMD_DESCRIPTION, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('--no-webserver', '-no-ws', action='store_true', help='Prevent starting a web server for JSON API')
+    parser.add_argument('--web-port', '-wp', type=int, default=8899, help='The port number for the web server')
+    parser.add_argument('--web-host', '-wh', type=str, default='0.0.0.0', help='The hostname for the web server')
+    parser.add_argument('--skip-scheduler', action='store_true', help='Prevent the scheduler from crawling')
+    parser.add_argument('--version', '-v', action='store_true', help='Print the version of Scylla')
+    parser.add_argument('--db-path', type=str, default='./scylla.db', help='The sqlite database file location')
+    parser.add_argument('--validation-pool', type=int, default=150, help='The validation pool size (i.e. the limit of concurrent validation tasks for proxies)')
+    parser.add_argument('--no-forward-proxy-server', action='store_true', help='Disable the forward proxy server')
+    parser.add_argument('--proxy-port', '-pp', type=int, default=8081, help='The port number for the forward proxy')
 
     parsed_args = parser.parse_args(args)
 
